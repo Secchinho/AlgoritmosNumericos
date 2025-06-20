@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1750435191 source:c:\users\usuario\desktop\algoritmos numéricos\gaussseidel\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
