@@ -10,7 +10,7 @@ int main()
     //criando um ponteiro para arquivo e abrindo
     FILE *arq = fopen("Sistema.txt", "r");
 
-    //conferindo se é válido
+    //conferindo se ï¿½ vï¿½lido
     if(arq==NULL){
         printf("Nao foi possivel abrir o arquivo!\n");
         return 0;
@@ -25,7 +25,7 @@ int main()
     //lendo a quantidade de sistemas
     fscanf(arq, "%d", &sistemas);
 
-    //lendo o tamanho da matriz e a precisão
+    //lendo o tamanho da matriz e a precisï¿½o
     fscanf(arq, "%d %f", &tamanho, &precisao);
 
     float matriz[tamanho][tamanho];
@@ -50,7 +50,7 @@ int main()
 
     float vet0[tamanho];
 
-    //início da conta - início da contagem de tempo
+    //inï¿½cio da conta - inï¿½cio da contagem de tempo
     inicio = clock();
 
     //calculando o X(0)
@@ -64,7 +64,7 @@ int main()
     float erro = precisao+1;
     float vet2[tamanho];
 
-    //repetir até que o erro esteja aceitável
+    //repetir atï¿½ que o erro esteja aceitï¿½vel
     while(erro>precisao){
 
     //criando um vetor auxiliar
@@ -86,7 +86,7 @@ int main()
 
     float maior1=0;
 
-    //encontrando o maior valor em módulo
+    //encontrando o maior valor em mï¿½dulo
     for(i=0;i<tamanho-1;i++){
         if(fabs(vet1[i])>=fabs(vet1[i+1])){
             maior1=fabs(vet1[i]);
@@ -96,14 +96,14 @@ int main()
         }
     }
 
-    //cálculo
+    //cï¿½lculo
     for(i=0;i<tamanho;i++){
         vet2[i] = vet1[i] - vet0[i];
     }
 
     float maior2=0;
 
-    //encontrando o maior valor em módulo
+    //encontrando o maior valor em mï¿½dulo
     for(i=0;i<tamanho-1;i++){
         if(fabs(vet2[i])>=fabs(vet2[i+1])){
             maior2=fabs(vet2[i]);
@@ -116,7 +116,7 @@ int main()
     //calculando erro
     erro = maior2/maior1;
 
-    //reconfigurando o vetor para continuar o loop (se necessário)
+    //reconfigurando o vetor para continuar o loop (se necessï¿½rio)
     for(i=0;i<tamanho;i++){
         vet0[i]=vet1[i];
     }
@@ -132,7 +132,7 @@ int main()
 
     }
 
-    //finalização da contagem de tempo
+    //finalizaï¿½ï¿½o da contagem de tempo
     fim = clock();
     printf("Tempo de execucao: %.80f\n", tempo);
 
