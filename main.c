@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include "EliminacaoDeGauss.h"
 #include <time.h>
-#include "fatoracaoLU.h"
+
 
 float** alocacaoMat(int ordemMat)
 {
@@ -66,11 +68,12 @@ int main(int argc, char *argv[])
     }
 
     inicio = clock();
-    fatoracaoLU(matriz, matrizL, matrizU, ordemMat);
 
     float *b = calloc(ordemMat, sizeof(float));
     float *x = calloc(ordemMat, sizeof(float));
     float *y = calloc(ordemMat, sizeof(float));
+    
+    gaussEliminacaoPivotamento(ordemMat, matriz, b, x);
 
     for (int s = 0; s < sistemas; s++) 
     {
@@ -81,8 +84,6 @@ int main(int argc, char *argv[])
             fscanf(arq, "%f", &b[i]);
         }
         
-        resolverLU(matrizL, matrizU, b, x, y, ordemMat);
-
         printf("Vetor solução X:\n");
         for (int i = 0; i < ordemMat; i++)
         {
