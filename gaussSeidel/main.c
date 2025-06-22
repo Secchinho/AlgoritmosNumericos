@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
 int main()
 {
@@ -125,7 +126,7 @@ int main()
     contSistemas++;
 
     for(i=0;i<tamanho;i++){
-        printf("X%d: %f\n", i+1, vet2[i]);
+        printf("X%d: %f\n", i+1, vet1[i]);
     }
 
     printf("Erro: %f\n", erro);

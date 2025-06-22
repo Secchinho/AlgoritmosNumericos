@@ -4,6 +4,8 @@
 #include <time.h>
 #include "eliminacaoDeGauss.h"
 #include "fatoracaoLU.h"
+#include "gaussSeidel.h"
+#include "gaussJacobi.h"
 
 
 float** alocacaoMat(int ordemMat)
@@ -73,7 +75,7 @@ int main(int argc, char *argv[])
     float *x = calloc(ordemMat, sizeof(float));
     float *y = calloc(ordemMat, sizeof(float));
     
-    printf("\nResultados e tempo de execução da eliminação de Gauss:");
+    printf("\nResultados e tempo de execução da Eliminação de Gauss:");
     inicio = clock();
     
     for (int s = 0; s < sistemas; s++) 
@@ -95,10 +97,9 @@ int main(int argc, char *argv[])
     }
     fim = clock();
 
-    printf("Tempo de execução eliminação de Gauss: %f\n", (float)(fim - inicio) / CLOCKS_PER_SEC);
+    printf("Tempo de execução Eliminação de Gauss: %f\n", (float)(fim - inicio) / CLOCKS_PER_SEC);
 
-    printf("\nResultados e tempo de execução da fatoração LU:");
-
+    printf("\nResultados e tempo de execução da Fatoração LU:");
     inicio = clock();
     fatoracaoLU(matriz, matrizL, matrizU, ordemMat);
     
@@ -122,6 +123,55 @@ int main(int argc, char *argv[])
     fim = clock();
 
     printf("Tempo de execução FatoraçãoLU: %f\n", (float)(fim - inicio) / CLOCKS_PER_SEC);
+
+    printf("\nResultados e tempo de execução da Gauss Seidel:");
+    inicio = clock();
+    
+    for (int s = 0; s < sistemas; s++) 
+    {
+        printf("\nSistema %d:\n", s + 1);
+        
+        for (int i = 0; i < ordemMat; i++)
+        {
+            fscanf(arq, "%f", &b[i]);
+        }
+        
+        gaussSeidel(ordemMat, matriz, b, x, precisao);
+        
+        printf("Vetor solução X:\n");
+        for (int i = 0; i < ordemMat; i++)
+        {
+            printf("x[%d] = %f\n", i, x[i]);
+        }
+    }
+    fim = clock();
+
+    printf("Tempo de execução GaussSeidel: %f\n", (float)(fim - inicio) / CLOCKS_PER_SEC);
+
+    printf("\nResultados e tempo de execução da Gauss Jacobi:");
+    inicio = clock();
+    
+    for (int s = 0; s < sistemas; s++) 
+    {
+        printf("\nSistema %d:\n", s + 1);
+        
+        for (int i = 0; i < ordemMat; i++)
+        {
+            fscanf(arq, "%f", &b[i]);
+        }
+        
+        gaussJacobi(ordemMat, matriz, b, x, precisao);
+        
+        printf("Vetor solução X:\n");
+        for (int i = 0; i < ordemMat; i++)
+        {
+            printf("x[%d] = %f\n", i, x[i]);
+        }
+    }
+    fim = clock();
+
+    printf("Tempo de execução GaussJacobi: %f\n", (float)(fim - inicio) / CLOCKS_PER_SEC);
+
     liberarMat(matriz, ordemMat);
     liberarMat(matrizL, ordemMat);
     liberarMat(matrizU, ordemMat);
