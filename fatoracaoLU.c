@@ -1,41 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "fatoracaoLU.h"
 
-void fatoracaoLU(double **matrizA, double **matrizL, double **matrizU, int ordemMat)
+void fatoracaoLU(float **matrizA, float **matrizL, float **matrizU, int ordemMat)
 {
+    //Inicializa L como identidade e faz uma cópia de A em U
     for(int i = 0; i < ordemMat; i++)
     {
-        //Construindo a matriz U
-        for(int k = i; k < ordemMat; k++)
+        for(int j = 0; j < ordemMat; j++)
         {
-            matrizU[i][k] = matrizA[i][k];
-            for(int j = 0; i < j; j++)
+            if(i == j)
             {
-                matrizU[i][k] -= matrizL[i][j] * matrizU[j][k];
-            }
-        }
-
-        //Construindo a matriz L
-        for (int k = i; k < ordemMat; k++)
-        {
-            if(i == k)
-            {
-                matrizL[i][i] = 1;
+                matrizL[i][j] = 1;
             }
             else
             {
-                matrizL[k][i] = matrizA[k][i];
-                for(int j = 0; j < i; j++)
-                {
-                    matrizL[k][i] -= matrizL[k][j] * matrizU[j][i];
-                }
-                matrizL[k][i] /= matrizU[i][i];
+                matrizL[i][j] = 0;
+            }
+
+            matrizU[i][j] = matrizA[i][j];
+        }
+    }
+
+    //Escalonamento de A para formar U e L
+
+    for(int i = 0; i < ordemMat - 1; i++)
+    {
+        for(int j = i + 1; j < ordemMat; j++)
+        {
+            float m = matrizU[j][i] / matrizU[i][i];
+            matrizL[j][i] = m;
+
+            for(int k = i; k < ordemMat; k++)
+            {
+                matrizU[j][k] -= m * matrizU[i][k];
             }
         }
     }
 }
 
-void resolverLU(double **matrizL, double **matrizU, double *b, double *x, double *y, int ordemMat)
+void resolverLU(float **matrizL, float **matrizU, float *b, float *x, float *y, int ordemMat)
 {
     
     //Resolvendo o Ly = B

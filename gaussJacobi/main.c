@@ -8,9 +8,9 @@ int main()
     double tempo;
 
     //criando ponteiro para o arquivo e abrindo
-    FILE * arq = fopen("Sistema.txt", "r");
+    FILE * arq = fopen("Teste1.txt", "r");
 
-    //conferência do arquivo
+    //conferï¿½ncia do arquivo
     if (arq == NULL){
         printf("Nao foi possivel abrir o arquivo!\n");
         return 0;
@@ -26,8 +26,8 @@ int main()
     //lendo quantidade de sistemas
     fscanf(arq, "%d", &sistemas);
 
-    //não perco a posição de onde parou a leitura
-    //lendo tamanho da matriz e precisão
+    //nï¿½o perco a posiï¿½ï¿½o de onde parou a leitura
+    //lendo tamanho da matriz e precisï¿½o
     fscanf(arq, "%d %f", &tamanho, &precisao);
 
     float matriz[tamanho][tamanho];
@@ -49,7 +49,7 @@ int main()
         fscanf(arq, "%f", &vetor[i]);
     }
 
-    //início da conta - início da contagem de tempo
+    //inï¿½cio da conta - inï¿½cio da contagem de tempo
     inicio = clock();
 
     float vet0[tamanho];
@@ -63,7 +63,7 @@ int main()
     float vet2[tamanho];
     float erro = precisao + 1; //+1 serve para obrigar a entrada no while
 
-    //conta será realizada até que o erro esteja aceitável (menor que a precisão)
+    //conta serï¿½ realizada atï¿½ que o erro esteja aceitï¿½vel (menor que a precisï¿½o)
     while(erro > precisao){
     float valor;
 
@@ -82,7 +82,7 @@ int main()
     float maior1=0;
 
     //encontrando o maior valor
-    for(i=0;i<tamanho-1;i++){ //fabs() considera o módulo do número
+    for(i=0;i<tamanho-1;i++){ //fabs() considera o mï¿½dulo do nï¿½mero
         if(fabs(vet1[i])>=fabs(vet1[i+1])){
             maior1 = fabs(vet1[i]);
         }
@@ -99,7 +99,7 @@ int main()
     float maior2=0;
 
     //encontrando o maior valor
-    for(i=0;i<tamanho-1;i++){ //fabs() considera o módulo do número
+    for(i=0;i<tamanho-1;i++){ //fabs() considera o mï¿½dulo do nï¿½mero
         if(fabs(vet2[i])>=fabs(vet2[i+1])){
             maior2 = fabs(vet2[i]);
         }
@@ -111,7 +111,7 @@ int main()
     //calculando o erro
     erro = maior2/maior1;
 
-    //reconfigurando o vetor para continuar o loop (se necessário)
+    //reconfigurando o vetor para continuar o loop (se necessï¿½rio)
     for(i=0;i<tamanho;i++){
         vet0[i] = vet1[i];
     }

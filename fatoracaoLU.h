@@ -1,2 +1,2 @@
-void fatoracaoLU(double **matrizA, double **matrizL, double **matrizU, int ordemMat);
-void resolverLU(double **matrizL, double **matrizU, double *b, double *x, int ordemMat);
+void fatoracaoLU(float **matrizA, float **matrizL, float **matrizU, int ordemMat);
+void resolverLU(float **matrizL, float **matrizU, float *b, float *x, float *y, int ordemMat);
