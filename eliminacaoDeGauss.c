@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "EliminacaoDeGauss.h"
 #include <math.h>
+#include "eliminacaoDeGauss.h"
 
 void gaussEliminacaoPivotamento(int ordem, float **A, float *B, float *x){
     // Eliminação de Gauss com pivotamento parcial
@@ -37,18 +37,5 @@ void gaussEliminacaoPivotamento(int ordem, float **A, float *B, float *x){
             }
             B[i] -= fator * B[k];
         }
-    }
-
-    // Substituição regressiva
-    for (int i = ordem - 1; i >= 0; i--) {
-        float soma = 0;
-        for (int j = i + 1; j < ordem; j++) {
-            soma += A[i][j] * x[j];
-        }
-        if (A[i][i] == 0) {
-            printf("Erro: Divisão por zero detectada na substituição regressiva!\n");
-            exit(1);
-        }
-        x[i] = (B[i] - soma) / A[i][i];
     }
 }

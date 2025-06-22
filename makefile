@@ -1,7 +1,7 @@
 all: compila
 
-compila: main.o fatoracaoLU.o
-	gcc main.o fatoracaoLU.o -o prog
+compila: main.o fatoracaoLU.o eliminacaoDeGauss.o
+	gcc main.o fatoracaoLU.o eliminacaoDeGauss.o -o prog
 
 main.o: main.c
 	gcc -c main.c
@@ -9,5 +9,11 @@ main.o: main.c
 fatoracaoLU.o: fatoracaoLU.c
 	gcc -c fatoracaoLU.c
 
-del:
+eliminacaoDeGauss.o:
+	gcc -c eliminacaoDeGauss.c
+
+rm:
 	rm main.o fatoracaoLU.o prog
+
+del:
+	del main.o fatoracaoLU.o eliminacaoDeGauss.o prog

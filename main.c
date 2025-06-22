@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "EliminacaoDeGauss.h"
 #include <time.h>
+#include "eliminacaoDeGauss.h"
+#include "fatoracaoLU.h"
 
 
 float** alocacaoMat(int ordemMat)
@@ -67,22 +68,24 @@ int main(int argc, char *argv[])
         }
     }
 
-    inicio = clock();
-
+    
     float *b = calloc(ordemMat, sizeof(float));
     float *x = calloc(ordemMat, sizeof(float));
     float *y = calloc(ordemMat, sizeof(float));
     
-    gaussEliminacaoPivotamento(ordemMat, matriz, b, x);
-
+    printf("\nResultados e tempo de execução da eliminação de Gauss:");
+    inicio = clock();
+    
     for (int s = 0; s < sistemas; s++) 
     {
         printf("\nSistema %d:\n", s + 1);
-
+        
         for (int i = 0; i < ordemMat; i++)
         {
             fscanf(arq, "%f", &b[i]);
         }
+        
+        gaussEliminacaoPivotamento(ordemMat, matriz, b, x);
         
         printf("Vetor solução X:\n");
         for (int i = 0; i < ordemMat; i++)
@@ -92,29 +95,33 @@ int main(int argc, char *argv[])
     }
     fim = clock();
 
-    printf("Tempo de execução %f\n", (float)(fim - inicio) / CLOCKS_PER_SEC);
-    //Resolver problemas com mais de um sistema no mesmo arquivo
-    //while( contSistemas < sistemas){
-        //printf ("%d SISTEMA \n", contSistemas + 1);
-        //float vetor[ordemMat];
+    printf("Tempo de execução eliminação de Gauss: %f\n", (float)(fim - inicio) / CLOCKS_PER_SEC);
 
-        //preenchendo o(s) vetor(es)
-        //for(int i = 0; i < ordemMat; i++){
-           // fscanf(arq, "%f", &vetor[i]);
-        //}
+    printf("\nResultados e tempo de execução da fatoração LU:");
 
-        /*
-            Função para receber e ler a matriz
-        */
+    inicio = clock();
+    fatoracaoLU(matriz, matrizL, matrizU, ordemMat);
+    
+    for (int s = 0; s < sistemas; s++) 
+    {
+        printf("\nSistema %d:\n", s + 1);
+        
+        for (int i = 0; i < ordemMat; i++)
+        {
+            fscanf(arq, "%f", &b[i]);
+        }
+        
+        resolverLU(matrizL, matrizU, b, x, y, ordemMat);
+        
+        printf("Vetor solução X:\n");
+        for (int i = 0; i < ordemMat; i++)
+        {
+            printf("x[%d] = %f\n", i, x[i]);
+        }
+    }
+    fim = clock();
 
-        /*
-            Chamada das funções de resolução das matrizes
-        */
-
-        /*
-            Comparação de resultados
-        */
-    //}
+    printf("Tempo de execução FatoraçãoLU: %f\n", (float)(fim - inicio) / CLOCKS_PER_SEC);
     liberarMat(matriz, ordemMat);
     liberarMat(matrizL, ordemMat);
     liberarMat(matrizU, ordemMat);
